@@ -27,7 +27,7 @@ SECRET_KEY = 'dummy key'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'mydjangoapp', '*']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'mydjangoapp', '*', 'netlify.app']
 
 
 # Application definition
@@ -41,10 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'jamatulmsl',
     'rest_framework',
-    # 'allauth',   
-    # 'allauth.account',  
-    # 'allauth.socialaccount',
-    # 'allauth.socialaccount.providers.google', 
 ]
 
 MIDDLEWARE = [
