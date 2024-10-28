@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block title %}Vehicle Pass{% endblock %}
+
+{% block content %}
+{% load static %}
+<style>
+  .text-center .apply-now {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #4caf50;
+    color: #fff;
+    font-size: 19px;
+    text-decoration: none;
+    border-radius: 25px;
+    margin-top: 5px;
+    transition: 0.3s ease;
+    border: none;
+  }
+
+  .text-center .apply-now:hover {
+    background-color: #3e8e41;
+  }
+  
+  .background-image {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    width: 500px; /* Adjust the width as per your requirement */
+    height: auto;
+    margin: 0 auto;
+  }
+  
+  .background-img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .qr-code-container {
+    position: absolute;
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  .qr-code {
+    max-width: 100%;
+    height: auto;
+  }
+</style>
+  
+</style>
+<div class="container">
+  <h1 class="text-center mt-5">Vehicle Pass</h1>
+  <form method="POST" action="{% url 'vehiclepass' %}">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="registration_number">Enter Registration Number:</label>
+      <input type="text" class="form-control" id="registration_number" name="registration_number" required>
+    </div>
+    <br>
+    <div class="text-center">
+      <button type="submit" class="apply-now">Generate QR Code</button>
+    </div>
+  </form>
+  
+  {% if booking %}
+  <h3 class="text-center mt-4">VEHICLE PASS NO: {{ booking.id }}</h3>
+  <div class="background-image" id="passContainer">
+    <!-- Your background image here -->
+    <img src="{% static '/images/OQRTemplate.png' %}" alt="Background Image" class="background-img">
+  
+    <!-- QR code container -->
+    <div class="qr-code-container">
+      <img src="{{ qr_code_url }}" alt="QR Code" class="qr-code">
+      <!-- <span class="vehicle-pass-no">VEHICLE PASS NO: {{ booking.id }}</span> -->
+    </div>
+  </div>
+  
+  
+  <div class="text-center mt-0 mb-4">
+    <a href="" class="apply-now" id="downloadButton">Download Pass</a>
+  </div>
+
+  <script>
+    // Function to download the pass as an image
+    function downloadPass() {
+      const passContainer = document.getElementById('passContainer');
+      const passImage = passContainer.querySelector('.background-img');
+      const qrCodeImage = passContainer.querySelector('.qr-code');
+  
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+  
+      canvas.width = passContainer.offsetWidth;
+      canvas.height = passContainer.offsetHeight;
+  
+      // Clear the canvas
+      context.clearRect(0, 0, canvas.width, canvas.height);
+  
+      // Draw the background image
+      context.drawImage(passImage, 0, 0, canvas.width, canvas.height);
+  
+      // Calculate the position to center the QR code
+      const qrCodeX = (canvas.width - qrCodeImage.offsetWidth) / 2 + 0.2;
+      const qrCodeY = (canvas.height - qrCodeImage.offsetHeight) / 2 + 13;
+  
+      // Draw the QR code
+      context.drawImage(qrCodeImage, qrCodeX, qrCodeY, qrCodeImage.offsetWidth, qrCodeImage.offsetHeight);
+  
+      // Draw the vehicle pass number
+      context.font = 'bold 24px Arial';
+      context.fillStyle = '#000';
+      context.fillText('Pass no: {{ booking.id }}', 180,canvas.height - 133); // Replace {{ booking.id }} with the actual vehicle pass number
+      context.fillText(' {{ booking.registration_number}}', canvas.width/2 - 60,canvas.height - 179);
+      const downloadLink = document.createElement('a');
+      downloadLink.href = canvas.toDataURL('image/png'); // Change 'image/png' to 'image/jpeg' for JPG format
+      downloadLink.download = 'vehicle_pass.png'; // Change the file extension to '.jpg' for JPG format
+      downloadLink.style.display = 'none';
+  
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+  
+      document.body.removeChild(downloadLink);
+    }
+  
+    // Add event listener to the download button
+    const downloadButton = document.getElementById('downloadButton');
+    downloadButton.addEventListener('click', downloadPass);
+  </script>
+  
+  {% endif %}
+</div>
+{% endblock %}
+
+
+
+
+
+
+
