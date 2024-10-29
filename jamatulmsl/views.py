@@ -235,7 +235,7 @@ class viewResume(LoginRequiredMixin, APIView):
         if  'button2' in request.POST:
             return render(request, "editapplicant.html", {'user_datas':user_profile}, status=status.HTTP_202_ACCEPTED)
         if  'button5' in request.POST:
-            return render(request, "burial.html", {'user_datas':user_profile},status=status.HTTP_202_ACCEPTED)
+            return render(request, "gatepass.html", {'user_datas':user_profile},status=status.HTTP_202_ACCEPTED)
         return redirect('listResume')
         
  
