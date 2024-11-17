@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+<!-- changing title of page -->
+
+{% block title %}
+List Applicant Form
+{% endblock title %}
+
+{% block body %}
+
+{% load static %}
+<form action="/updategetpass" method="post">
+  {% csrf_token %}
+  <div class="card-deck">
+
+
+    <!-- if  created display info of that  option to view that-->
+    <div class="container-fluid pt-5 pb-3">
+
+      <div class="row">
+        <div class="col-sm-3"> </div>
+        <div class="col-sm-6 d-flex justify-content-center">
+          <!-- <div class="card" style="width: 20rem;"> -->
+          <div class="card">
+            <!-- <img class="card-img-top" src="{% static '/images/resume-5.jpg' %}" alt="Card image cap"> -->
+            <div class="card-body">
+              {% for message in messages %}
+              <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert"
+                style="background-color: #4bfa54 !important;">
+                {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              {% endfor %}
+              <label for="cno" class="form-label">Vehicle Number*</label>
+              <div class="form-group">
+                <input type="text" class="form-control mb-3" id="vehicle_no" onkeypress="vehicle_no()" name="vehicle_no"
+                  maxlength="10" placeholder="Enter Vehicle Number" >
+                  <b>OR</b><br>
+                  <label for="cno" class="form-label">Form Number*</label>
+                <input type="text" class="form-control mb-3" id="form_number" onkeypress="vehicle_no()" name="form_number"
+                maxlength="10" placeholder="Enter Form Number">
+                <div class="text-center">
+                  <input type="submit" name="button2" class="btn btn-primary" value="Edit">
+                  <input type="submit" name="button4" class="btn btn-danger" value="Delete"
+                    onclick="return confirmAction()">
+                </div>
+              </div>
+            </div>
+            <div class="card-footer text-center">
+              <!-- <input type="submit" name = "button1" class="btn btn-success" value="View Form C"> -->
+              <input type="submit" name="button5" class="btn btn-success" value="View Gate Pass">
+              <!-- <input type="submit" name = "button2" class="btn btn-success" value="View Letter Head"> -->
+            </div>
+          </div>
+          <!-- </div> -->
+        </div>
+        <div class="col-sm-3"> </div>
+      </div>
+    </div>
+
+    <!-- if no  created, display this -->
+
+
+    <!-- <div class="container-fluid pt-5 pb-3">
+      <div class="row">
+        <div class="col-sm-3"> </div>
+        <div class="col-sm-6 d-flex justify-content-center">
+          <div class="card" style="width: 20rem;">
+            <div class="card">
+              <img class="card-img-top" src="{% static '/images/resume-5.jpg' %}" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title"> You haven't created Any Applicant Form yet! </h5>
+                <p class="card-text">Lets get started! Create your first now!</p>
+              </div>
+              <div class="card-footer text-center">
+                <a href="/addResume" class="btn btn-success"> CREATE </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3"> </div>
+      </div>
+    </div>  -->
+</form>
+<script>
+  function vehicle_no() {
+    $('#Contact_number').keypress(function (e) {
+      var a = [];
+      var k = e.which;
+
+      for (i = 48; i < 58; i++)
+        a.push(i);
+
+      if (!(a.indexOf(k) >= 0))
+        e.preventDefault();
+    });
+  }
+
+  function confirmAction() {
+    var confirmed = confirm("Are you sure you want to proceed?");
+    return confirmed;
+  }
+</script>
+
+
+
+
+{% endblock body %}
