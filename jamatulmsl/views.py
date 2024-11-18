@@ -164,13 +164,12 @@ class savepersondetails(LoginRequiredMixin, APIView):
         }
         print(condata)
 
-        vehicle_no = request.POST.get('vehicle_no1')
-        print('vehicle_no', vehicle_no)
-        user_profile = gatepass.objects.filter(vehicle_no=vehicle_no).order_by('-date', '-gate_in_time').first()
-        form_number =  user_profile.form_number
-        user_profile1 = gatepass.objects.filter(form_number=form_number)
+        
         if  'button2' in request.POST:
-            print('button 2')
+            vehicle_no1 = request.POST.get('vehicle_no1')
+            user_profile = gatepass.objects.filter(vehicle_no=vehicle_no1).order_by('-date', '-gate_in_time').first()
+            form_number =  user_profile.form_number
+            user_profile1 = gatepass.objects.filter(form_number=form_number)
             return render(request, "editapplicant1.html", {'user_datas':user_profile1, 'context': condata['ids']}, status=status.HTTP_202_ACCEPTED)
         if 'button1' in request.POST:
             print('button 1')
