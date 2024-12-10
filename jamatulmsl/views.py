@@ -280,7 +280,6 @@ class tally(LoginRequiredMixin, APIView):
 
         current_datet =  datetime.datetime.now()
         current_datedt = current_datet.date()
-        print(current_datedt)
 
         user_profile = gatepass.objects.all()
         amountlist = []
@@ -300,19 +299,16 @@ class tally(LoginRequiredMixin, APIView):
                 if st_dt1 <= dt <= ed_dt1:
                     amountlist.append(int(data.amount))
                     totalvehiclelist.append(str(data.vehicle_no))
-                continue
+                
             else:
                 st_dt = datetime.datetime.strptime(str(st_dt1), '%Y-%m-%d').date()  # Adjust format if necessary
                 ed_dt = datetime.datetime.strptime(str(ed_dt1), '%Y-%m-%d').date()  # Adjust format if necessary
-                print('enter date is not empty')
                 if st_dt <= dt <= ed_dt:
                     amountlist.append(int(data.amount))
                     totalvehiclelist.append(str(data.vehicle_no))
 
         total_sum =  sum(amountlist)
         total_vehicle_count =  len(totalvehiclelist)
-        print('total_sum',total_sum)
-        print('total_vehicle_count',total_vehicle_count)
 
         datadict = [{
             'todate': str(st_dt1),
@@ -322,7 +318,6 @@ class tally(LoginRequiredMixin, APIView):
             'tottleamt': str(total_sum),
             'currentdate': str(current_datedt)
         }]
-        print(datadict)
 
         return render(request, "tally.html", {'user_datas': datadict},status=status.HTTP_202_ACCEPTED)
         # return redirect('tallydaterange')

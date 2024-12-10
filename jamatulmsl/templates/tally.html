@@ -69,6 +69,63 @@ Gate Pass - Rajveer Earth Movers and Developers
         padding: 8px; /* Inner padding for fields */
         border-radius: 4px; /* Optional: rounded corners */
     }
+
+    /* Styles for small screens (mobile) */
+    @media (max-width: 768px) {
+        .container {
+            width: 100%; /* Full width for smaller screens */
+            height: auto; /* Allow height to adjust based on content */
+            padding: 10px; /* Less padding on small screens */
+        }
+        .header {
+            flex-direction: column; /* Stack the logo and text vertically */
+            align-items: center; /* Center the content */
+            text-align: center; /* Center text */
+        }
+        .logo {
+            width: 80px; /* Make logo a bit smaller */
+        }
+        .info {
+            flex-direction: column; /* Stack the fields vertically */
+            align-items: flex-start; /* Align fields to the left */
+        }
+        .info div {
+            width: 100%; /* Ensure divs take full width */
+            justify-content: flex-start; /* Align text to the left */
+        }
+        .info div strong {
+            width: 120px; /* Smaller label width for mobile */
+        }
+        .field {
+            width: 100%; /* Full width fields on mobile */
+            margin-bottom: 10px; /* Space between fields */
+        }
+    }
+
+    /* Styles for printing */
+    @media print {
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 11.69in; /* A4 landscape full width */
+            height: 5.8in; /* Half of A4 height */
+            margin: 0 auto;
+            padding: 10px; /* Padding for print */
+            box-sizing: border-box;
+            position: relative;
+            top: 0;
+        }
+        .info {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping for smaller screens */
+        }
+        .field {
+            flex: 1 1 50%; /* Each field takes half the width */
+            box-sizing: border-box;
+        }
+    }
 </style>
 
 <div class="container mt-5" id="capture">
@@ -143,8 +200,23 @@ Gate Pass - Rajveer Earth Movers and Developers
         // Specify image quality (0.0 to 1.0)
         const imgData = canvas.toDataURL('image/jpeg', 0.7); // Set quality for size reduction
         const pdf = new jsPDF('portrait', 'pt', 'a4'); // A4 size
-        const imgWidth = 595.28; // A4 width in points
-        const imgHeight = (canvas.height * imgWidth) / canvas.width; // Maintain aspect ratio
+        // A4 paper dimensions in points
+        const a4Width = 595.28;  // A4 width in points
+        const a4Height = 841.89; // A4 height in points
+        // const imgHeight = (canvas.height * imgWidth) / canvas.width; // Maintain aspect ratio
+
+        // Get the aspect ratio of the canvas
+        const aspectRatio = canvas.width / canvas.height;
+
+        // Calculate image width and height maintaining the aspect ratio
+        let imgWidth = a4Width;
+        let imgHeight = imgWidth / aspectRatio;
+
+        // If the image height exceeds A4 height, scale it to fit within the A4 page
+        if (imgHeight > a4Height) {
+            imgHeight = a4Height;
+            imgWidth = imgHeight * aspectRatio;
+        }
 
         pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight); // Add image to PDF
         // Save PDF with vehicle number as filename
