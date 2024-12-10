@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block body %}
+<html>
+
+<head>
+    <title>UPDATE APPLICANT</title>
+</head>
+<style>
+    h1 {
+        text-align: center;
+        color: rgb(255, 0, 0);
+        font-size: 100px;
+    }
+
+    .container {
+        width: 100%;
+        padding-right: 30px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+</style>
+
+<div class="container">
+    <div class="row pt-5 mb-3">
+        <div class="text-center col-md-5"></div>
+        <div class="col-md-12 mt-3 mb-3 ml-2 mr-2 my-auto border border-dark border-2 rounded-3">
+            <h3 class="text-center mb-3 mt-3"><b>SELECT DATE RANGE <label for="" class="form-label" style="color: red;"><b>OR</b></label><br> PRESS CALCULATE FOR CURRENT DATE</h3></b>
+            {% for message in messages %}
+            <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+                {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+            <form action="/tally" method="post">{% csrf_token %}
+
+                <!-- <label for="transporter" class="form-label">Search by Transporter Name*</label>
+                <div class="form-group">
+                    <select class="form-control mb-3" id="transporter" name="transporter">
+                        <option value="" disabled selected>Select a transporter</option>
+                        {% for transporter in transporters %}
+                        <option value="{{ transporter }}">{{ transporter }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <label for="" class="form-label" style="color: red;"><b>OR</b></label><br>
+                <label for="ImporterTrader" class="form-label">Search by Importer / Trader*</label>
+                <div class="form-group">
+                    <select class="form-control mb-3" id="ImporterTrader" name="ImporterTrader">
+                        <option value="" disabled selected>Select a Importer / Trader</option>
+                        {% for ImporterTraders in ImporterTrader %}
+                        <option value="{{ ImporterTraders }}">{{ ImporterTraders }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <label for="transporter" class="form-label" style="color: red;"><b>OR</b></label><br> -->
+                <label for="startDate" class="form-label">Start Date*</label>
+                <div class="form-group">
+                    <input type="Date" class="form-control mb-3" id="startDate" name="startDate"
+                        placeholder="Enter Date">
+                </div>
+                <label for="endDate" class="form-label">End Date*</label>
+                <div class="form-group">
+                    <input type="Date" class="form-control mb-3" id="endDate" name="endDate" placeholder="Enter Date">
+                </div>
+                <button class="btn btn-dark d-grid mx-auto col-6 mt-4 mb-3" name="button" type="submit">CALCULATE</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</html>
+{% endblock body %}

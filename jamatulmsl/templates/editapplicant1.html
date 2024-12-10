@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+<!-- changing title of page -->
+
+{% block title %}
+Registration Form
+{% endblock title %}
+
+{% block body %}
+
+<!-- creating container for adding details -->
+<style>
+    .container {
+        width: 100%;
+        padding-right: 30px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+</style>
+<div class="container">
+    <div class="row pt-2 mb-3">
+        <div class="text-center col-md-6"></div>
+        <div class="col-md-12 mt-3 mb-3 ml-2 mr-2 my-auto border border-dark border-2 rounded-3">
+            <h3 class="text-center mb-3 mt-3"></h3>
+
+            {% for message in messages %}
+            <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+                {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+
+            <!-- creating form for adding resume details -->
+            {% for userdata in user_datas %}
+            <form action="/updateregdetails/{{userdata.vehicle_no}}/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <label for="userid" class="form-label">User ID*</label>
+                <div class="form-group">
+                    <input type="text" class="form-control mb-3" id="USERID" name="USERID" value="{{ user.username }}"
+                        placeholder="Enter user id"  readonly>
+                </div>
+
+                <label for="fno" class="form-label">Form Number*</label>
+                <div class="form-group">
+                    <input type="text" class="form-control mb-3" id="form_number" name="form_number"
+                        value="{{ context }}" placeholder="Enter Form Number"  readonly>
+                </div>
+
+                <label for="transporter_name" class="form-label">Transporter Name*</label>
+                <div class="form-group">
+                    <input type="text" class="form-control mb-3" id="transporter_name" name="transporter_name"
+                        value="{{ userdata.transporter_name }}" placeholder="Enter Transporter Name" >
+                </div>
+
+                <label for="driver_name" class="form-label">Driver Name*</label>
+                <div class="form-group">
+                    <input type="text" class="form-control mb-3" id="driver_name" name="driver_name"
+                        value="{{ userdata.driver_name }}" placeholder="Enter Driver Name" >
+                </div>
+
+                <label for="vehicle_owner_name" class="form-label">Vehicle Owner Name ( Importer / Trader )*</label>
+                <div class="form-group">
+                    <input type="text" class="form-control mb-3" id="vehicle_owner_name" name="vehicle_owner_name"
+                        value="{{ userdata.vehicle_owner_name }}" placeholder="Enter Vehicle Owner Name" >
+                </div>
+
+                <label for="vehicle_no" class="form-label">Vehicle Number*</label>
+                <div class="form-group">
+                    <input type="text" class="form-control mb-3" id="vehicle_no" name="vehicle_no"
+                        value="{{ userdata.vehicle_no }}" placeholder="Enter Vehicle Number" >
+                </div>
+
+                <label for="date" class="form-label">Date*</label>
+                <div class="form-group">
+                    <input type="date" class="form-control mb-3" id="date" name="date" >
+                </div>
+
+                <label for="gate_in_time" class="form-label">Gate In Time*</label>
+                <div class="form-group">
+                    <input type="time" class="form-control mb-3" id="gate_in_time" name="gate_in_time" >
+                </div>
+
+                <label for="driver_number" class="form-label">Driver Number*</label>
+                <div class="form-group">
+                    <input type="tel" class="form-control mb-3" id="driver_number" name="driver_number" maxlength="10"
+                        value="{{ userdata.driver_number }}" placeholder="Enter Driver Number" pattern="[0-9]{10}"
+                        >
+                </div>
+
+                <label for="driver_licence_no" class="form-label">Driver License Number*</label>
+                <div class="form-group">
+                    <input type="text" class="form-control mb-3" id="driver_licence_no" name="driver_licence_no"
+                        value="{{ userdata.driver_licence_no }}" placeholder="Enter Driver License Number" >
+                </div>
+                <label for="amount" class="form-label">Amount*</label>
+                <div class="form-group">
+                    <input type="text" class="form-control mb-3" id="amount" name="amount" value="20" readonly >
+                </div>
+                <button class="btn btn-dark d-grid mx-auto col-6 mt-4 mb-3 " type="submit">SUBMIT</button>
+
+            </form>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+<script>
+    function Contact_number1() {
+        $('#Contact_number').keypress(function (e) {
+            var a = [];
+            var k = e.which;
+
+            for (i = 48; i < 58; i++)
+                a.push(i);
+
+            if (!(a.indexOf(k) >= 0))
+                e.preventDefault();
+        });
+    }
+    document.addEventListener('DOMContentLoaded', (event) => {
+        // Set current date
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('date').value = today;
+
+        // Set current time (in HH:MM format)
+        const currentTime = new Date();
+        const hours = String(currentTime.getHours()).padStart(2, '0');
+        const minutes = String(currentTime.getMinutes()).padStart(2, '0');
+        document.getElementById('gate_in_time').value = `${hours}:${minutes}`;
+    });
+
+
+
+</script>
+{% endblock body %}

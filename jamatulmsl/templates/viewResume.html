@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+<!-- changing title of page -->
+
+{% block title %}
+View Resume
+{% endblock title %}
+
+{% block body %}
+{% load static %}
+
+<!-- creating template for displaying Resume -->
+
+<div class=" pt-4 pl-5 pr-5 ml-5 mr-5 pb-4">
+  <div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8 border border-dark px-5 ">
+      <div class="row">
+        <h2 class=" h1 text-center py-3"> {{user_profile.Applicant_name}}</h2>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+    </div>
+
+    <div class="col-md-2">
+    </div>
+  </div>
+</div>
+
+{% endblock body %}

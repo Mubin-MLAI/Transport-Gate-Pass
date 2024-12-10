@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Gate Pass - Rajveer Earth Movers and Developers
+{% endblock title %}
+
+{% block body %}
+
+{% load static %}
+
+<style>
+
+    @media print {
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .info {
+        display: flex;
+        flex-wrap: wrap; /* Allow wrapping for smaller screens */
+        }
+        .field {
+            flex: 1 1 50%; /* Each field takes half the width */
+            box-sizing: border-box; /* Include padding and border in width */
+        }
+        .container {
+            width: 11.69in; /* A4 landscape half width */
+            height: 5.8in; /* Half of A4 height */
+            margin: 0 auto; /* Center on the page */
+            padding: 10px; /* Padding for print */
+            box-sizing: border-box;
+            position: relative; /* Positioning for centering */
+            top: 0; /* Align to the top */
+        }
+    }
+
+    /* Styles for on-screen display */
+    .container {
+        width: 11.69in; /* A4 landscape half width */
+        height: 5.8in; /* Half of A4 height */
+        margin: 0 auto;
+        padding: 20px; /* Normal padding for display */
+        box-sizing: border-box;
+    }
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+    .logo {
+        width: 60px;
+        height: auto;
+    }
+    .info {
+        margin-top: 20px;
+    }
+    .info div {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+    }
+    .info div strong {
+        display: inline-block;
+        width: 150px; /* Adjusted for better spacing */
+    }
+    .field {
+        border: 1px solid #000; /* Border for each field */
+        padding: 8px; /* Inner padding for fields */
+        border-radius: 4px; /* Optional: rounded corners */
+    }
+</style>
+
+<div class="container mt-5" id="capture">
+    <div class="row justify-content-center mb-3">
+        <div class="col-md-12 my-auto p-4">
+            {% for userdatas in user_datas %}
+            <div class="header">
+                <img src="{% static 'images/Rajveer.jpeg' %}" alt="Logo" class="logo" style="width: 130px; height: auto;">
+                <div class="text-center flex-grow-1">
+                    <h1 class="h1 mb-0" style="font-size: 3em;"><b>Rajveer EarthMovers and Developers</b></h1>
+                    <p class="mb-0" style="font-size: 1.5em;">Karanja Port, Uran, Navi Mumbai</p>
+                </div>
+            </div>
+            <h5 class="gate-pass-title text-center"><b>GATE PASS</b></h5>
+            <div class="info mt-3 d-flex flex-wrap">
+                <div class="field mb-2 border p-2" style="flex: 1 1 50%;">
+                    <strong>Serial No -</strong> <span>{{ userdatas.form_number }}</span>
+                </div>
+                <div class="field mb-2 border p-2" style="flex: 1 1 50%;">
+                    <strong>Transporter Name -</strong> <span>{{ userdatas.transporter_name }}</span>
+                </div>
+                <div class="field mb-2 border p-2" style="flex: 1 1 50%;">
+                    <strong>Date -</strong> <span>{{ userdatas.date }}</span>
+                </div>
+                <div class="field mb-2 border p-2" style="flex: 1 1 50%;">
+                    <strong>Vehicle No -</strong> <span>{{ userdatas.vehicle_no }}</span>
+                </div>
+                <div class="field mb-2 border p-2" style="flex: 1 1 50%;">
+                    <strong>Gate In -</strong> <span>{{ userdatas.gate_in_time }}</span>
+                </div>
+                <div class="field mb-2 border p-2" style="flex: 1 1 50%;">
+                    <strong>Driver Name -</strong> <span>{{ userdatas.driver_name }}</span>
+                </div>
+                <div class="field mb-2 border p-2" style="flex: 1 1 50%;">
+                    <strong>Driver No -</strong> <span>{{ userdatas.driver_number }}</span>
+                </div>
+                <div class="field mb-2 border p-2" style="flex: 1 1 50%;">
+                    <strong>Vehicle Owner -</strong> <span>{{ userdatas.vehicle_owner_name }}</span>
+                </div>
+                <div class="field mb-2 border p-2" style="flex: 1 1 100%;">
+                    <strong>Driver License No. -</strong> <span>{{ userdatas.driver_licence_no }}</span>
+                </div> <br>
+                <div class="field mb-2 border p-2" style="flex: 1 1 50%;">
+                    <strong>Amount. -</strong> <span>{{ userdatas.amount }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="text-center mb-4">
+    <button class="btn btn-dark" onclick="downloadAsPDF('{{userdatas.vehicle_no}}')">Download Now</button>
+</div>
+{% endfor %}
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+    async function downloadAsPDF(vehicleNumber) {
+        const { jsPDF } = window.jspdf;
+        const captureElement = document.getElementById('capture');
+
+        // Use html2canvas to capture the element
+        const canvas = await html2canvas(captureElement, {
+            useCORS: true,
+            scale: 2 // Increase the scale for better quality
+        });
+
+        // Specify image quality (0.0 to 1.0)
+        const imgData = canvas.toDataURL('image/jpeg', 0.7); // Set quality for size reduction
+        const pdf = new jsPDF('portrait', 'pt', 'a4'); // A4 size
+        const imgWidth = 595.28; // A4 width in points
+        const imgHeight = (canvas.height * imgWidth) / canvas.width; // Maintain aspect ratio
+
+        pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight); // Add image to PDF
+        // Save PDF with vehicle number as filename
+        pdf.save(`${vehicleNumber}-gate-pass.pdf`); // Set filename to vehicle number
+    }
+</script>
+
+
+
+
+
+
+{% endblock body %}
