@@ -78,11 +78,16 @@ Gate Pass - Rajveer Earth Movers and Developers
             <div class="header">
                 <img src="{% static 'images/Rajveer.jpeg' %}" alt="Logo" class="logo" style="width: 130px; height: auto;">
                 <div class="text-center flex-grow-1">
-                    <h1 class="h1 mb-0" style="font-size: 3em;"><b>Rajveer EarthMovers and Developers</b></h1>
+                    <h1 class="h1 mb-0" style="font-size: 3em;"><b>RAJEER EARTHMOVERS & DEVELOPERS</b></h1>
                     <p class="mb-0" style="font-size: 1.5em;">Karanja Port, Uran, Navi Mumbai</p>
                 </div>
             </div>
-            <h5 class="gate-pass-title text-center"><b>GATE PASS</b></h5>
+            <div style="display: flex; justify-content: space-between;">
+                <h6 class="gate-pass-title">Email : rajveeremd@gmail.com</h6>
+                <h5 class="gate-pass-title text-center"><b><u>CONTRACTOR RECEIPT</b></u></h5>
+                <h6 class="gate-pass-title">Office No : +917710985005</h6>
+            </div>
+            <!-- <h5 class="gate-pass-title text-center"><b>CONTRACTOR RECEIPT</b> </h5> -->
             <div class="info mt-3 d-flex flex-wrap">
                 <div class="field mb-2 border p-2" style="flex: 1 1 50%;">
                     <strong>Serial No -</strong> <span>{{ userdatas.form_number }}</span>
@@ -115,13 +120,15 @@ Gate Pass - Rajveer Earth Movers and Developers
                     <strong>Amount. -</strong> <span>{{ userdatas.amount }}</span>
                 </div>
             </div>
+            <div class="text-center mb-4">
+                <button class="btn btn-dark" onclick="downloadAsPDF('{{userdatas.vehicle_no}}')">Download Now</button>
+            </div>
+            {% endfor %}
         </div>
     </div>
 </div>
-<div class="text-center mb-4">
-    <button class="btn btn-dark" onclick="downloadAsPDF('{{userdatas.vehicle_no}}')">Download Now</button>
-</div>
-{% endfor %}
+
+
 
 
 
