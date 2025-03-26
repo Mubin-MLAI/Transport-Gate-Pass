@@ -9,96 +9,140 @@ Gate Pass - Rajveer Earth Movers and Developers
 {% load static %}
 
 <style>
-
     @media print {
         body {
             margin: 0;
             padding: 0;
         }
+
         .info {
-        display: flex;
-        flex-wrap: wrap; /* Allow wrapping for smaller screens */
+            display: flex;
+            flex-wrap: wrap;
+            /* Allow wrapping for smaller screens */
         }
+
         .field {
-            flex: 1 1 50%; /* Each field takes half the width */
-            box-sizing: border-box; /* Include padding and border in width */
-        }
-        .container {
-            width: 11.69in; /* A4 landscape half width */
-            height: 5.8in; /* Half of A4 height */
-            margin: 0 auto; /* Center on the page */
-            padding: 10px; /* Padding for print */
+            flex: 1 1 50%;
+            /* Each field takes half the width */
             box-sizing: border-box;
-            position: relative; /* Positioning for centering */
-            top: 0; /* Align to the top */
+            /* Include padding and border in width */
+        }
+
+        .container {
+            width: 11.69in;
+            /* A4 landscape half width */
+            height: 5.8in;
+            /* Half of A4 height */
+            margin: 0 auto;
+            /* Center on the page */
+            padding: 10px;
+            /* Padding for print */
+            box-sizing: border-box;
+            position: relative;
+            /* Positioning for centering */
+            top: 0;
+            /* Align to the top */
         }
     }
 
     /* Styles for on-screen display */
     .container {
-        width: 11.69in; /* A4 landscape half width */
-        height: 5.8in; /* Half of A4 height */
+        width: 11.69in;
+        /* A4 landscape half width */
+        height: 5.8in;
+        /* Half of A4 height */
         margin: 0 auto;
-        padding: 20px; /* Normal padding for display */
+        padding: 20px;
+        /* Normal padding for display */
         box-sizing: border-box;
     }
+
     .header {
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin-bottom: 20px;
     }
+
     .logo {
         width: 60px;
         height: auto;
     }
+
     .info {
         margin-top: 20px;
     }
+
     .info div {
         display: flex;
         justify-content: space-between;
         margin-bottom: 8px;
     }
+
     .info div strong {
         display: inline-block;
-        width: 150px; /* Adjusted for better spacing */
+        width: 150px;
+        /* Adjusted for better spacing */
     }
+
     .field {
-        border: 1px solid #000; /* Border for each field */
-        padding: 8px; /* Inner padding for fields */
-        border-radius: 4px; /* Optional: rounded corners */
+        border: 1px solid #000;
+        /* Border for each field */
+        padding: 8px;
+        /* Inner padding for fields */
+        border-radius: 4px;
+        /* Optional: rounded corners */
     }
 
     /* Styles for small screens (mobile) */
     @media (max-width: 768px) {
         .container {
-            width: 100%; /* Full width for smaller screens */
-            height: auto; /* Allow height to adjust based on content */
-            padding: 10px; /* Less padding on small screens */
+            width: 100%;
+            /* Full width for smaller screens */
+            height: auto;
+            /* Allow height to adjust based on content */
+            padding: 10px;
+            /* Less padding on small screens */
         }
+
         .header {
-            flex-direction: column; /* Stack the logo and text vertically */
-            align-items: center; /* Center the content */
-            text-align: center; /* Center text */
+            flex-direction: column;
+            /* Stack the logo and text vertically */
+            align-items: center;
+            /* Center the content */
+            text-align: center;
+            /* Center text */
         }
+
         .logo {
-            width: 80px; /* Make logo a bit smaller */
+            width: 80px;
+            /* Make logo a bit smaller */
         }
+
         .info {
-            flex-direction: column; /* Stack the fields vertically */
-            align-items: flex-start; /* Align fields to the left */
+            flex-direction: column;
+            /* Stack the fields vertically */
+            align-items: flex-start;
+            /* Align fields to the left */
         }
+
         .info div {
-            width: 100%; /* Ensure divs take full width */
-            justify-content: flex-start; /* Align text to the left */
+            width: 100%;
+            /* Ensure divs take full width */
+            justify-content: flex-start;
+            /* Align text to the left */
         }
+
         .info div strong {
-            width: 120px; /* Smaller label width for mobile */
+            width: 120px;
+            /* Smaller label width for mobile */
         }
+
         .field {
-            width: 100%; /* Full width fields on mobile */
-            margin-bottom: 10px; /* Space between fields */
+            width: 100%;
+            /* Full width fields on mobile */
+            margin-bottom: 10px;
+            /* Space between fields */
         }
     }
 
@@ -108,21 +152,29 @@ Gate Pass - Rajveer Earth Movers and Developers
             margin: 0;
             padding: 0;
         }
+
         .container {
-            width: 11.69in; /* A4 landscape full width */
-            height: 5.8in; /* Half of A4 height */
+            width: 11.69in;
+            /* A4 landscape full width */
+            height: 5.8in;
+            /* Half of A4 height */
             margin: 0 auto;
-            padding: 10px; /* Padding for print */
+            padding: 10px;
+            /* Padding for print */
             box-sizing: border-box;
             position: relative;
             top: 0;
         }
+
         .info {
             display: flex;
-            flex-wrap: wrap; /* Allow wrapping for smaller screens */
+            flex-wrap: wrap;
+            /* Allow wrapping for smaller screens */
         }
+
         .field {
-            flex: 1 1 50%; /* Each field takes half the width */
+            flex: 1 1 50%;
+            /* Each field takes half the width */
             box-sizing: border-box;
         }
     }
@@ -133,7 +185,8 @@ Gate Pass - Rajveer Earth Movers and Developers
         <div class="col-md-12 my-auto p-4">
             <!-- {% for userdatas in user_datas %} -->
             <div class="header">
-                <img src="{% static 'images/Rajveer.jpeg' %}" alt="Logo" class="logo" style="width: 130px; height: auto;">
+                <img src="{% static 'images/Rajveer.jpeg' %}" alt="Logo" class="logo"
+                    style="width: 130px; height: auto;">
                 <div class="text-center flex-grow-1">
                     <h1 class="h1 mb-0" style="font-size: 3em;"><b>Rajveer EarthMovers and Developers</b></h1>
                     <p class="mb-0" style="font-size: 1.5em;">Karanja Port, Uran, Navi Mumbai</p>
@@ -191,36 +244,36 @@ Gate Pass - Rajveer Earth Movers and Developers
         const { jsPDF } = window.jspdf;
         const captureElement = document.getElementById('capture');
 
+        // Save the current screen size and layout
+        const originalViewport = document.querySelector('meta[name="viewport"]');
+        const originalWidth = window.innerWidth;
+        const originalHeight = window.innerHeight;
+
+        // Temporarily force desktop layout (this forces a wider viewport on mobile)
+        document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=1024');
+
         // Use html2canvas to capture the element
         const canvas = await html2canvas(captureElement, {
             useCORS: true,
-            scale: 2 // Increase the scale for better quality
+            scale: 2, // Increase the scale for better quality
+            x: 0,  // Adjust capture area to the page's top left
+            y: 0,
         });
 
         // Specify image quality (0.0 to 1.0)
         const imgData = canvas.toDataURL('image/jpeg', 0.7); // Set quality for size reduction
         const pdf = new jsPDF('portrait', 'pt', 'a4'); // A4 size
-        // A4 paper dimensions in points
-        const a4Width = 595.28;  // A4 width in points
-        const a4Height = 841.89; // A4 height in points
-        // const imgHeight = (canvas.height * imgWidth) / canvas.width; // Maintain aspect ratio
+        const imgWidth = 595.28; // A4 width in points
+        const imgHeight = (canvas.height * imgWidth) / canvas.width; // Maintain aspect ratio
 
-        // Get the aspect ratio of the canvas
-        const aspectRatio = canvas.width / canvas.height;
-
-        // Calculate image width and height maintaining the aspect ratio
-        let imgWidth = a4Width;
-        let imgHeight = imgWidth / aspectRatio;
-
-        // If the image height exceeds A4 height, scale it to fit within the A4 page
-        if (imgHeight > a4Height) {
-            imgHeight = a4Height;
-            imgWidth = imgHeight * aspectRatio;
-        }
 
         pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight); // Add image to PDF
         // Save PDF with vehicle number as filename
         pdf.save(`${INVOICE}-Tally.pdf`); // Set filename to vehicle number
+
+        // Restore the original layout
+        document.querySelector('meta[name="viewport"]').setAttribute('content', `width=${originalWidth}`);
+        window.scrollTo(0, 0); // Scroll back to the top
     }
 </script>
 
