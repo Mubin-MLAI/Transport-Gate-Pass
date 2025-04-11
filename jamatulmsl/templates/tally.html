@@ -252,12 +252,11 @@ Gate Pass - Rajveer Earth Movers and Developers
         // Temporarily force desktop layout (this forces a wider viewport on mobile)
         document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=1024');
 
-        // Use html2canvas to capture the element
         const canvas = await html2canvas(captureElement, {
             useCORS: true,
-            scale: 2, // Increase the scale for better quality
-            x: 0,  // Adjust capture area to the page's top left
-            y: 0,
+            scale: 2, // High quality
+            windowWidth: document.body.scrollWidth,
+            scrollY: -window.scrollY, // Capture full scroll height
         });
 
         // Specify image quality (0.0 to 1.0)

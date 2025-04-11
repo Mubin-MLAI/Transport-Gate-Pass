@@ -15,19 +15,28 @@ Gate Pass - Rajveer Earth Movers and Developers
             margin: 0;
             padding: 0;
         }
+
         .info {
             display: flex;
-            flex-wrap: wrap; /* Allow wrapping for smaller screens */
+            flex-wrap: wrap;
+            /* Allow wrapping for smaller screens */
         }
+
         .field {
-            flex: 1 1 50%; /* Each field takes half the width */
+            flex: 1 1 50%;
+            /* Each field takes half the width */
             box-sizing: border-box;
-            padding: 8px; /* Padding for fields */
+            padding: 8px;
+            /* Padding for fields */
         }
+
         .container {
-            width: 11.69in; /* A4 landscape half width */
-            height: 5.8in; /* Half of A4 height */
-            margin: 0 auto; /* Center on the page */
+            width: 11.69in;
+            /* A4 landscape half width */
+            height: 5.8in;
+            /* Half of A4 height */
+            margin: 0 auto;
+            /* Center on the page */
             padding: 10px;
             box-sizing: border-box;
             position: relative;
@@ -36,35 +45,43 @@ Gate Pass - Rajveer Earth Movers and Developers
 
     /* Mobile and normal screen styles */
     .container {
-        width: 100%; /* Full width for mobile and smaller screens */
-        max-width: 11.69in; /* Max width to A4 size */
+        width: 100%;
+        /* Full width for mobile and smaller screens */
+        max-width: 11.69in;
+        /* Max width to A4 size */
         margin: 0 auto;
         padding: 15px;
         box-sizing: border-box;
     }
+
     .header {
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin-bottom: 15px;
     }
+
     .logo {
         width: 130px;
         height: auto;
     }
+
     .info {
         margin-top: 20px;
         display: flex;
-        flex-wrap: wrap; /* Allow fields to wrap */
+        flex-wrap: wrap;
+        /* Allow fields to wrap */
     }
+
     .info div {
         display: flex;
         justify-content: space-between;
         margin-bottom: 10px;
         flex: 1 1 50%;
     }
-     /* Slightly adjusted for better spacing */
-    
+
+    /* Slightly adjusted for better spacing */
+
     .field {
         border: 1px solid #000;
         padding: 10px;
@@ -78,18 +95,24 @@ Gate Pass - Rajveer Earth Movers and Developers
             flex-direction: column;
             align-items: flex-start;
         }
+
         .info div {
-            flex: 1 1 100%; /* Make fields take up full width on smaller screens */
+            flex: 1 1 100%;
+            /* Make fields take up full width on smaller screens */
         }
+
         .info div strong {
             width: auto;
         }
+
         .logo {
             width: 100px;
         }
+
         h1 {
             font-size: 2.5em;
         }
+
         h5 {
             font-size: 1.2em;
         }
@@ -100,15 +123,54 @@ Gate Pass - Rajveer Earth Movers and Developers
         .header {
             text-align: center;
         }
+
         .info div {
-            flex: 1 1 100%; /* Each info field takes full width */
-            padding: 6px; /* Smaller padding for small devices */
+            flex: 1 1 100%;
+            /* Each info field takes full width */
+            padding: 6px;
+            /* Smaller padding for small devices */
         }
+
         .info div strong {
-            width: 120px; /* Adjust label width for smaller screens */
+            width: 120px;
+            /* Adjust label width for smaller screens */
         }
+
         .logo {
-            width: 80px; /* Smaller logo for smaller devices */
+            width: 80px;
+            /* Smaller logo for smaller devices */
+        }
+    }
+
+    .contact-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .contact-header h5,
+    .contact-header h6 {
+        margin: 0;
+        flex: 1 1 100%;
+        text-align: center;
+    }
+
+    @media (min-width: 768px) {
+        .contact-header h6 {
+            flex: 1 1 auto;
+            text-align: left;
+        }
+
+        .contact-header h5 {
+            flex: 1 1 auto;
+            text-align: center;
+        }
+
+        .contact-header h6:last-of-type {
+            text-align: right;
         }
     }
 </style>
@@ -124,11 +186,12 @@ Gate Pass - Rajveer Earth Movers and Developers
                     <p class="mb-0">Karanja Port, Uran, Navi Mumbai</p>
                 </div>
             </div>
-            <div style="display: flex; justify-content: space-between;">
+            <div class="contact-header">
                 <h6 class="gate-pass-title">Email : rajveeremd@gmail.com</h6>
-                <h5 class="gate-pass-title text-center"><b><u>CONTRACTOR RECEIPT</b></u></h5>
+                <h5 class="gate-pass-title text-center"><b><u>CONTRACTOR RECEIPT</u></b></h5>
                 <h6 class="gate-pass-title">Office No : +917710985005</h6>
             </div>
+
             <div class="info mt-3 d-flex flex-wrap">
                 <div class="field mb-2 border p-2" style="flex: 1 1 50%;">
                     <strong>Serial No -</strong> <span>{{ userdatas.form_number }}</span>
@@ -184,12 +247,11 @@ Gate Pass - Rajveer Earth Movers and Developers
         // Temporarily force desktop layout (this forces a wider viewport on mobile)
         document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=1024');
 
-        // Use html2canvas to capture the element
         const canvas = await html2canvas(captureElement, {
             useCORS: true,
-            scale: 2, // Increase the scale for better quality
-            x: 0,  // Adjust capture area to the page's top left
-            y: 0,
+            scale: 2, // High quality
+            windowWidth: document.body.scrollWidth,
+            scrollY: -window.scrollY, // Capture full scroll height
         });
 
         // Specify image quality (0.0 to 1.0)

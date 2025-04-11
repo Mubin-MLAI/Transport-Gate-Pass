@@ -243,8 +243,6 @@ class viewResume(LoginRequiredMixin, APIView):
         vehicle_no = request.POST.get('vehicle_no') 
         form_number = request.POST.get('form_number')
 
-        
-
         # Check if vehicle_no is provided
         if vehicle_no:
             print('vehicle_no:', vehicle_no)
@@ -355,10 +353,13 @@ class exporttoexcel(LoginRequiredMixin, APIView):
         output_json_n = {}
         if st_dt and ed_dt:
             user_profile = gatepass.objects.all() 
-        if transporter:
+        elif transporter:
                 user_profile = gatepass.objects.filter(transporter_name = transporter)
-        if Importer_Trader:
+        elif Importer_Trader:
             user_profile = gatepass.objects.filter(vehicle_owner_name = Importer_Trader)
+        else:
+            messages.success(request, 'Data Not Found')
+            return render(request, 'export.html', status=status.HTTP_404_NOT_FOUND)
              
         for data in user_profile:
             if data.date is not None:
